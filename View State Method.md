@@ -1,4 +1,4 @@
-# 아래의 코드는 UIViewController의 view 관련 메서드(viewDidLoad, viewWillAppear, viewDidAppear, viewWillDisappear, viewDidDisappear) 중 어느 메서드 내부에 위치하는 것이 좋을지 생각해봅시다. (40분)
+# 아래의 코드는 UIViewController의 view 관련 메서드(viewDidLoad, viewWillAppear, viewDidAppear, viewWillDisappear, viewDidDisappear) 중 어느 메서드 내부에 위치하는 것이 좋을지 생각해봅시다.
 - 사용자 환영 애니메이션을 보여주는 코드
 - 뷰에 보여질 데이터를 불러올 코드
 - 배경음악을 재생할 코드

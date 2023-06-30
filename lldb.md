@@ -1,4 +1,4 @@
-lldb
+# lldb
 
 ### 함수 이름 이용해서 함수 브레이크 걸기
 - breakpoint set --name viewDidLoad

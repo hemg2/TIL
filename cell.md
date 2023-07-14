@@ -1,1 +1,2 @@
 셀 재사용
+translatesAutoresizingMaskIntoConstraints

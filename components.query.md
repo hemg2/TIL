@@ -18,3 +18,27 @@ var components = URLComponents(string: url)
  ]
 let url = components.url
 ```
+
+
+
+/*
+ let url = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=asdsadadsad&targetDt=20230101"
+ guard let components = URL(string: url) else { return }
+ 
+ 
+ 
+ let url = "http://kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json"
+ let apiKey = "asdasdsad"
+ let targetDate = "20230722"
+ 
+ var components = URLComponents(string: url)
+ 
+ components?.queryItems = [
+ URLQueryItem(name: "key", value: apiKey),
+ URLQueryItem(name: "targetDt", value: targetDate)
+ ]
+ 
+ guard let url = components?.url else {
+ return
+ }
+ */

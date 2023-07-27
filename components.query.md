@@ -42,3 +42,37 @@ let url = components.url
  return
  }
  */
+
+
+
+
+ ```swift
+private static func decodeResponseData<T: Decodable>(_ responseData: Data, _ completionHandler: (APIResult<T>) -> Void) {
+        do {
+            let jsonDecoder = JSONDecoder()
+            let decodingData = try jsonDecoder.decode(T.self, from: responseData)
+            
+            completionHandler(.success(.init(data: decodingData)))
+        } catch {
+            completionHandler(.fauilure(.decodingFail))
+        }
+    }
+    
+    private static func setUpRequestURL(_ baseURL: URL,_ request: APIRequest) -> URL? {
+        var urlComponents = URLComponents()
+        
+        urlComponents.scheme = baseURL.scheme
+        urlComponents.host = baseURL.host
+        
+        if let path = request.path {
+            urlComponents.path = path
+        }
+        
+        if let queryItems = request.queryItems {
+            urlComponents.queryItems = queryItems.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+        }
+        
+        return urlComponents.url
+    }
+
+```

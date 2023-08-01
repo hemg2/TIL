@@ -66,3 +66,7 @@ extension Bundle {
     }
 }
 ```
+
+
+- gitignore 들어가서
+- 파일제목.plist 추가해서 막기!

@@ -81,3 +81,69 @@ class ImageDownload {
 guard let icon = model.icon, let url = URL(string: "https://openweathermap.org/img/wn/\(icon)@2x.png") else { return }
         weatherIconImage.image = UIImage(data: ImageDownload.shared.download(url: url))
 ```
+
+
+
+
+## URLCache
+```swift
+ let imageCacheURL = URLCache.shared
+    @IBOutlet weak var firstImageView: UIImageView!
+    @IBOutlet weak var secondImageView: UIImageView!
+    @IBOutlet weak var firstImageButton: UIButton!
+    @IBOutlet weak var secondImageButton: UIButton!
+    @IBOutlet weak var imageResetButton: UIButton!
+    @IBOutlet weak var cacheDelete: UIButton!
+    
+@IBAction func firstImageView(_ sender: Any) {
+        loadImage(url: "https://wallpaperaccess.com/download/europe-4k-1369012", imageView: firstImageView)
+    }
+    @IBAction func secondImageView(_ sender: Any) {
+        loadImage(url: "https://wallpaperaccess.com/download/europe-4k-1318341", imageView: secondImageView)
+    }
+    @IBAction func resetImageButton(_ sender: Any) {
+        firstImageView.image = nil
+        secondImageView.image = UIImageView() 이렇게 진행해도된다.
+        print("이미지 초기화!")
+    }
+    @IBAction func clearCacheButton(_ sender: Any) {
+        imageCacheURL.removeAllCachedResponses()
+        print("캐시 비우기")
+    }
+
+private func loadImage(url: String, imageView: UIImageView) {
+  let urlSession: URLSession = {
+            let config = URLSessionConfiguration.default
+            config.requestCachePolicy = .returnCacheDataElseLoad
+            config.urlCache = imageCacheURL
+            return URLSession(configuration: config)
+        }()
+        
+        guard let url = URL(string: url) else {
+            print("url없어")
+            return
+        }
+    if let cachedResponse = imageCacheURL.cachedResponse(for: URLRequest(url: url)) {
+            if let image = UIImage(data: cachedResponse.data) {
+                imageView.image = image
+                print("이미지 캐시 사용")
+                return
+            }
+        }
+        
+        let task = urlSession.dataTask(with: url) { data, response, error in
+            guard let data = data, let image = UIImage(data: data) else {
+                print("이미지 실패")
+                return
+            }
+ DispatchQueue.main.async {
+                imageView.image = image
+                let cachedData = CachedURLResponse(response: response!, data: data)
+                self.imageCacheURL.storeCachedResponse(cachedData, for: URLRequest(url: url))
+                print("이미지 다운")
+            }
+        }
+        task.resume()
+    }
+}
+```

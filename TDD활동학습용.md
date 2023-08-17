@@ -66,8 +66,6 @@ given, when, then 으로 나누어야한다.
 ```
 
 
-
-
 ```swift
 func test_countMatchingNumber_테스트3개같나() {
         //given

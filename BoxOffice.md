@@ -63,3 +63,108 @@ let header: [String: Any] = [:]
 ```
 
 "" 이렇게 빈값을 넣었다고 할수있지만 이것또한 이에 맞는 키에 벨류 값이 나올수있기때문에 확인하여 진행하기!
+
+
+
+
+
+
+# 코디네이터 적용을 위한 공부 진행
+
+```swift
+final class ViewController: UIViewController {
+    private var coordinator: CoordinatorPush
+    
+    private lazy var pushButton: UIButton = {
+        let button = UIButton()
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("다음화면", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        
+        let nextButton = UIAction { [weak self] _ in
+            guard let self else { return }
+            self.nextButton()
+        }
+        
+        button.addAction(nextButton, for: .touchUpInside)
+        return button
+    }()
+    
+    init(coordinator: Coordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .systemBackground
+        setUpButtonLayout()
+    }
+    
+    private func setUpButtonLayout() {
+        view.addSubview(pushButton)
+        
+        NSLayoutConstraint.activate([
+            pushButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pushButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+        코디네이터 객체를 알고 그것을 가져와서 쓴다. 굳이 프로토콜을 채택하지 않아도 된다.
+    private func nextButton() {
+        coordinator.navigateToSecondVC()
+    }
+}
+```
+
+
+```swift
+protocol CoordinatorPush {
+    func navigateToSecondVC()
+}
+
+final class Coordinator: CoordinatorPush {
+    private var navigationController: UINavigationController
+    
+    init(navigationController: UINavigationController) {
+        self.navigationController = navigationController
+    }
+    
+    func start() {
+        let firstVC = ViewController(coordinator: self)
+        navigationController.pushViewController(firstVC, animated: true)
+    }
+    
+    func navigateToSecondVC() {
+        let secondVC = SecondViewController(coordinator: self)
+        navigationController.pushViewController(secondVC, animated: true)
+    }
+}
+```
+
+
+```swift
+final class SecondViewController: UIViewController {
+    
+    private var coordinator: Coordinator?
+    
+    init(coordinator: Coordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .blue
+    }
+}
+```
+

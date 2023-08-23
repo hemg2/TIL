@@ -12,6 +12,7 @@ a.dataSouece
 }
 이런식 
 ```
+
 실기기를 연결하면 그안에서 프리뷰로 확인이 가능하다
 Previews in Xcode 세션 확인
 

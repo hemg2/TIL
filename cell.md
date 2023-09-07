@@ -28,3 +28,19 @@ autoresizingMask는 superview가 변함에 따라 subview의 크기를 어떻게
 허나 코드베이스로 하게 될경우에는 false로 걸어주어 인터페이스 요소들을 동적으로 결정하게 할수있다.
 
 
+
+
+- tableViewCell 에서 Label,Button 등 Layout 진행시에 알아야 할점.
+
+cell에서는 contentView인 최상단 뷰가 존재한다..
+여기서 addsubView 및 Layout을 진행하는것이 옳다.
+
+혹시라도 addsubView 혹은 constraint 를 잡을 경우 contentView가 하나의 메서드에서는 사용하고 다른곳에서는 사용 하지 않는다면 셀의 데이터들이 깨지는 현상을 볼 수 있을것이다.
+
+contentView에 하지 않을것이라면
+```swift
+addSubView
+진행이후 
+titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor 
+이렇게 safeAreaLayoutGuide 에서 잡으면 된다.
+```

@@ -71,10 +71,12 @@ class ViewController: UIViewController {
 ```
 
 ## 위의 예시와 같이 (의존성을 주입 하지 않은 경우)
+```swift
 class MainViewController: UIViewController {
     private let usecase = MainViewControllerUseCaseImplementation()
     // ... 채택하지않고 프로토콜 구현부을 인스턴스로 생성하게되는 경우
 }
+```
 이 방식에서는 MainViewController 클래스가 직접 MainViewControllerUseCaseImplementation 클래스의 인스턴스를 생성하고 사용합니다. 이것은 `강한 의존성`을 나타냅니다. 클래스가 자신의 의존성을 직접 관리하므로 클래스의 코드가 MainViewControllerUseCaseImplementation에 `강하게 결합`되어 있습니다. 이로 인해 다음과 같은 문제가 발생할 수 있습니다
 
 테스트하기 어려움: MainViewController를 테스트할 때, MainViewControllerUseCaseImplementation에 대한 목 객체(Mock)를 주입하기가 어려울 수 있습니다.

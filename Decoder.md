@@ -37,8 +37,7 @@ func test() {
             
 //            let json11 = String(data: asset.data, encoding: .utf8)
 //            print(json11!)
-            
-            
+
             do {
                 let itemInfo: Item = try json.decode(Item.self, from: contentData)
 

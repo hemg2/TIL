@@ -31,3 +31,6 @@ Privacy - Location When In Use Usage Description - 위치 허용 하시겠습니
 시뮬레이터 Location 옵션에서 none 에서 custom으로 변경하면 그에 맞는 좌표가 나타날것이며 그렇게 변경될꺼니 이상없이 진행될것입니다.
 
 이렇게 하지 않았다면... 경고창이 계속 나타날것이며 문제가 발생되어 위치 정보를 받아 올 수없습니다.
+
+
+<img src="https://hackmd.io/_uploads/BJ20Xkgyp.png" width="500">

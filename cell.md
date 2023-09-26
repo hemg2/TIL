@@ -44,3 +44,27 @@ addSubView
 titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor 
 이렇게 safeAreaLayoutGuide 에서 잡으면 된다.
 ```
+
+
+### 셀 추가 하기
+
+```swift
+        todoTableView.register(ListTitleCell.self, forCellReuseIdentifier: "listTitleCell")
+        todoTableView.register(DescriptionCell.self, forCellReuseIdentifier: "descriptionCell")
+switch (tableView, indexPath.section) {
+        case (todoTableView, 0):
+            guard let listCell = tableView.dequeueReusableCell(withIdentifier: "listTitleCell", for: indexPath) as? ListTitleCell else { return UITableViewCell() }
+            
+            listCell.setModel(title: "TODO", count: 1)
+            listCell.backgroundColor = .systemGray5
+            return listCell
+            
+        case (todoTableView, 1):
+            guard let descriptionCell = todoTableView.dequeueReusableCell(withIdentifier: "descriptionCell", for: indexPath) as? DescriptionCell else { return UITableViewCell() }
+            
+            descriptionCell.setModel(title: "제목", body: "내용", date: "날짜")
+            return descriptionCell
+            
+```
+
+이렇게 하나의 테이블뷰에 다중 셀을 받게하여 섹션마다 셀을 그리게 한다.

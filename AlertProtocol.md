@@ -16,3 +16,8 @@ extension AlertDisplayable where Self: UIViewController {
 }
 
 ```
+
+```swift
+let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+```
+스타일만변경하면 알럿에서 시트로변경이 가능하다! 좋습니다.
